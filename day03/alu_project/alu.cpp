@@ -15,31 +15,19 @@ class ALU {
   void setOPCODE(std::string OPCODE) { this->OPCODE = OPCODE; }
 
   void enableSignal(Result* r) {
-    if (OPCODE == "ADD" && OPCODE != "MUL" && OPCODE != "SUB") {
-      if (operand1 != -1 && operand2 != -1) {
+    if (OPCODE == "ADD") {
+      if (isOperandsVaild(r)) {
         int result = operand1 + operand2;
         r->setResult(result);
         r->setStatus(0);
-      } else if (operand1 == -1) {
-        r->setResult(65535);
-        r->setStatus(1);
-      } else if (operand2 == -1) {
-        r->setResult(65535);
-        r->setStatus(2);
       }
-    } else if (OPCODE != "ADD" && OPCODE == "MUL" && OPCODE != "SUB") {
-      if (operand1 != -1 && operand2 != -1) {
+    } else if (OPCODE == "MUL") {
+      if (isOperandsVaild(r)) {
         int result = operand1 * operand2;
         r->setResult(result);
         r->setStatus(0);
-      } else if (operand1 == -1) {
-        r->setResult(65535);
-        r->setStatus(1);
-      } else if (operand2 == -1) {
-        r->setResult(65535);
-        r->setStatus(2);
       }
-    } else if (OPCODE != "ADD" && OPCODE != "MUL" && OPCODE == "SUB") {
+    } else if (OPCODE == "SUB") {
       if (isOperandsVaild(r)) {
         int result = operand1 - operand2;
         r->setResult(result);
