@@ -16,17 +16,17 @@ class sumFixture : public Test {
     plusPos = text.find('+');
     equalPos = text.find('=');
 
-    if (plusPos == string::npos || equalPos == string::npos) return "FAIL";
-    if (text.find('+', plusPos + 1) != string::npos) return "FAIL";
-    if (text.find('=', equalPos + 1) != string::npos) return "FAIL";
+    if (plusPos == string::npos || equalPos == string::npos) return "ERROR";
+    if (text.find('+', plusPos + 1) != string::npos) return "ERROR";
+    if (text.find('=', equalPos + 1) != string::npos) return "ERROR";
     if (plusPos == 0 || plusPos >= equalPos - 1 || equalPos >= text.size() - 1)
-      return "FAIL";
+      return "ERROR";
 
     return text;
   }
 
   string checkSum(const string& text) {
-    if (text == "FAIL") return "FAIL";
+    if (text == "ERROR") return "ERROR";
 
     auto num1String = text.substr(0, plusPos);
     auto num2String = text.substr(plusPos + 1, equalPos - plusPos - 1);
@@ -61,11 +61,11 @@ TEST_F(sumFixture, TC2) {
 }
 
 TEST_F(sumFixture, TC3) {
-  EXPECT_EQ("FAIL", checkSum(checkEquation("12345+=12345")));
+  EXPECT_EQ("ERROR", checkSum(checkEquation("12345+=12345")));
 }
 
 TEST_F(sumFixture, TC4) {
-  EXPECT_EQ("FAIL", checkSum(checkEquation("5++5=10")));
+  EXPECT_EQ("ERROR", checkSum(checkEquation("5++5=10")));
 }
 
 TEST_F(sumFixture, TC5) {
