@@ -26,6 +26,8 @@ class sumFixture : public Test {
   }
 
   string checkSum(const string& text) {
+    if (text == "FAIL") return "FAIL";
+
     auto num1String = text.substr(0, plusPos);
     auto num2String = text.substr(plusPos + 1, equalPos - plusPos - 1);
     auto sumString = text.substr(equalPos + 1);
