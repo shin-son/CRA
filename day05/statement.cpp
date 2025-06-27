@@ -1,0 +1,25 @@
+#include "rental.cpp"
+
+class StatementFormatter {
+ public:
+  string formatHeader(string customer_name) {
+    return "Rental Record for " + customer_name + "\n";
+  }
+
+  string formatFooter(double amounts, int points) {
+    return "Amount owed is " + roundDoubleToString(amounts) + "\n" +
+           "You earned " + std::to_string(points) + " frequent renter points";
+  }
+
+  string formatLine(Rental& rentalMovie) {
+    return "\t" + rentalMovie.getMovie().getTitle() + "\t" +
+           roundDoubleToString(rentalMovie.getCharge()) + "\n";
+  }
+
+ private:
+  string roundDoubleToString(double tar) {
+    char buf[20] = {0};
+    sprintf_s(buf, sizeof(buf), "%.1f", tar);
+    return string{buf};
+  }
+};
