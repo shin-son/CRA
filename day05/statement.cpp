@@ -1,7 +1,24 @@
+#pragma once
+#include <vector>
+
+#include "master.cpp"
 #include "rental.cpp"
 
 class StatementFormatter {
  public:
+  string printFormat(std::vector<Rental>& rentals, string customer_name) {
+    master master;
+
+    string rentalBill = formatHeader(customer_name);
+
+    for (Rental& rental : rentals) rentalBill += formatLine(rental);
+
+    rentalBill += formatFooter(master.calculateTotalAmounts(rentals, 0),
+                               master.getFrequentRenterPoints(rentals, 0));
+
+    return rentalBill;
+  }
+
   string formatHeader(string customer_name) {
     return "Rental Record for " + customer_name + "\n";
   }

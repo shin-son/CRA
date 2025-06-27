@@ -13,19 +13,7 @@ class Customer {
  private:
   string name;
   vector<Rental> rentals;
-
-  string printFormat(StatementFormatter& report) {
-    master master;
-    string rentalBill = report.formatHeader(name);
-
-    for (Rental& rental : rentals) rentalBill += report.formatLine(rental);
-
-    rentalBill +=
-        report.formatFooter(master.calculateTotalAmounts(rentals, 0),
-                            master.getFrequentRenterPoints(rentals, 0));
-
-    return rentalBill;
-  }
+  StatementFormatter bill;
 
  public:
   Customer(const string& name) : name{name} {}
@@ -34,8 +22,5 @@ class Customer {
 
   string getName() const { return name; }
 
-  string statement() {
-    StatementFormatter billReport;
-    return printFormat(billReport);
-  }
+  string getBill() { return bill.printFormat(rentals, name); }
 };

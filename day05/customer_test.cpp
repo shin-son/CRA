@@ -19,7 +19,7 @@ class CustomerFixture : public Test {
 
 TEST_F(CustomerFixture, StatementForNoRental) {
   // assert
-  EXPECT_EQ(customer.statement(),
+  EXPECT_EQ(customer.getBill(),
             "" + string{"Rental Record for NAME_NOT_IMPORTANT\n"} +
                 string{"Amount owed is 0.0\n"} +
                 string{"You earned 0 frequent renter points"});
@@ -29,7 +29,7 @@ TEST_F(CustomerFixture, StatementForRegularMovieRentalForLessThan3Days) {
   customer.addRental(createRentalFor(2, Movie::REGULAR));
 
   // assert
-  EXPECT_EQ(customer.statement(),
+  EXPECT_EQ(customer.getBill(),
             "" + string{"Rental Record for NAME_NOT_IMPORTANT\n"} +
                 string{"\tTITLE_NOT_IMPORTANT\t2.0\n"} +
                 string{"Amount owed is 2.0\n"} +
@@ -40,7 +40,7 @@ TEST_F(CustomerFixture, StatementForRegularMovieRentalForMoreThan2Days) {
   customer.addRental(createRentalFor(3, Movie::REGULAR));
 
   // assert
-  EXPECT_EQ(customer.statement(),
+  EXPECT_EQ(customer.getBill(),
             "" + string{"Rental Record for NAME_NOT_IMPORTANT\n"} +
                 string{"\tTITLE_NOT_IMPORTANT\t3.5\n"} +
                 string{"Amount owed is 3.5\n"} +
@@ -51,7 +51,7 @@ TEST_F(CustomerFixture, StatementForNewReleaseMovie) {
   customer.addRental(createRentalFor(1, Movie::NEW_RELEASE));
 
   // assert
-  EXPECT_EQ(customer.statement(),
+  EXPECT_EQ(customer.getBill(),
             "" + string{"Rental Record for NAME_NOT_IMPORTANT\n"} +
                 string{"\tTITLE_NOT_IMPORTANT\t3.0\n"} +
                 string{"Amount owed is 3.0\n"} +
@@ -62,7 +62,7 @@ TEST_F(CustomerFixture, StatementForChildrenMovieRentalMoreThan2Days) {
   customer.addRental(createRentalFor(3, Movie::CHILDREN));
 
   // assert
-  EXPECT_EQ(customer.statement(),
+  EXPECT_EQ(customer.getBill(),
             "" + string{"Rental Record for NAME_NOT_IMPORTANT\n"} +
                 string{"\tTITLE_NOT_IMPORTANT\t1.5\n"} +
                 string{"Amount owed is 1.5\n"} +
@@ -73,7 +73,7 @@ TEST_F(CustomerFixture, StatementForChildrenMovieRentalMoreThan3Days) {
   customer.addRental(createRentalFor(4, Movie::CHILDREN));
 
   // assert
-  EXPECT_EQ(customer.statement(),
+  EXPECT_EQ(customer.getBill(),
             "" + string{"Rental Record for NAME_NOT_IMPORTANT\n"} +
                 string{"\tTITLE_NOT_IMPORTANT\t3.0\n"} +
                 string{"Amount owed is 3.0\n"} +
@@ -84,7 +84,7 @@ TEST_F(CustomerFixture, StatementForNewReleaseMovieRentalMoreThan1Day) {
   customer.addRental(createRentalFor(2, Movie::NEW_RELEASE));
 
   // assert
-  EXPECT_EQ(customer.statement(),
+  EXPECT_EQ(customer.getBill(),
             "" + string{"Rental Record for NAME_NOT_IMPORTANT\n"} +
                 string{"\tTITLE_NOT_IMPORTANT\t6.0\n"} +
                 string{"Amount owed is 6.0\n"} +
@@ -97,7 +97,7 @@ TEST_F(CustomerFixture, StatementForFewMovieRentals) {
   customer.addRental(createRentalFor(4, Movie::CHILDREN));
 
   // assert
-  EXPECT_EQ(customer.statement(),
+  EXPECT_EQ(customer.getBill(),
             "" + string{"Rental Record for NAME_NOT_IMPORTANT\n"} +
                 string{"\tTITLE_NOT_IMPORTANT\t2.0\n"} +
                 string{"\tTITLE_NOT_IMPORTANT\t12.0\n"} +
